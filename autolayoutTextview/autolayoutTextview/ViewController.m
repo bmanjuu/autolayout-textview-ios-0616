@@ -72,6 +72,24 @@
 //    In portrait mode, leave the padding between the UIButton and the UITextField at 20 pts. In landscape, decrease it 10 pts. Hint: you can listen for a rotation event and examine the new size class. Check out Joe's blog post for details.
 //        On an iPhone 6 or 6+, increase make the padding between the UIButton and the UITextField to be 30 pts. Hint: more size classes!
     
+    UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
+    
+    float screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    float screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    
+    if(screenWidth >= 375 && screenHeight >= 667){
+        [self.textView.bottomAnchor constraintEqualToAnchor:self.bottomRightButton.topAnchor constant:-20].active = NO;
+        [self.bottomRightButton.topAnchor constraintEqualToAnchor:self.textView.bottomAnchor constant:30].active = YES;
+        [self.bottomLeftButton.topAnchor constraintEqualToAnchor:self.textView.bottomAnchor constant:30].active = YES;
+        
+    }
+    
+    if(screenWidth < 375 && screenHeight < 667 && UIDeviceOrientationIsLandscape(deviceOrientation)){
+        [self.textView.bottomAnchor constraintEqualToAnchor:self.bottomRightButton.topAnchor constant:-20].active = NO;
+        [self.bottomRightButton.topAnchor constraintEqualToAnchor:self.textView.bottomAnchor constant:10].active = YES;
+        [self.bottomLeftButton.topAnchor constraintEqualToAnchor:self.textView.bottomAnchor constant:10].active = YES;
+    }
+    
     
 
     
